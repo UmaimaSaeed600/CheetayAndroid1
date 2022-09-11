@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_search_graph">
+
+    <fragment
+        android:id="@+id/SearchFragment"
+        android:name="com.example.mymovieappassigment.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_FirstFragment_to_detailFragment"
+            app:destination="@id/SearchdetailFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/SearchdetailFragment"
+        android:name="com.example.mymovieappassigment.SearchFragmentDetails"
+        android:label="DetailSearchFragment"
+        tools:layout="@layout/fragment_search_details">
+        <argument
+            android:name="SearchModel"
+            app:argType="com.example.mymovieappassigment.roomDatabase.model.FavModel" />
+    </fragment>
+
+</navigation>
