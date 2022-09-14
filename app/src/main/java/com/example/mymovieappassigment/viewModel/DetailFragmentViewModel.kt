@@ -3,7 +3,7 @@ package com.example.mymovieappassigment.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mymovieappassigment.Movie
+import com.example.mymovieappassigment.model.Movie
 
 
 class DetailFragmentViewModel(detailMovie: Movie) : ViewModel() {

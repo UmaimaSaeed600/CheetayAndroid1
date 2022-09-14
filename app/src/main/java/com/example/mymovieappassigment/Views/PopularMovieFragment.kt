@@ -1,8 +1,10 @@
-package com.example.mymovieappassigment
+package com.example.mymovieappassigment.Views
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -14,23 +16,26 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinroomdatabase.viewModel.UserViewModel
+import com.example.mymovieappassigment.model.Movie
+import com.example.mymovieappassigment.MoviesAdapter
+import com.example.mymovieappassigment.model.MoviesResponse
+import com.example.mymovieappassigment.Views.MainActivity.Constants.isFromSearch
+import com.example.mymovieappassigment.Views.MainActivity.Constants.searchName
+import com.example.mymovieappassigment.network.SearchMoveListener
+import com.example.mymovieappassigment.R
 import com.example.mymovieappassigment.databinding.FragmentFirstBinding
 import com.example.mymovieappassigment.viewModel.FirstFragmentViewModel
-import kotlinx.android.synthetic.main.fragment_first.*
 
-class FirstFragment : Fragment(), SearchMoveListener {
+class PopularMovieFragment : Fragment(), SearchMoveListener {
 
     private lateinit var popularMoviesAdapter: MoviesAdapter
-    private lateinit var moviesSearchAdapter: MoviesAdapter
     private lateinit var popularMoviesLayoutMgr: LinearLayoutManager
-    private lateinit var searchMoviesLayoutMgr: LinearLayoutManager
 
     private lateinit var viewModel: FirstFragmentViewModel
     private lateinit var binding: FragmentFirstBinding
     private lateinit var mUserViewModel: UserViewModel
     val favArrayList = arrayListOf<Long>()
     private lateinit var movies: MutableList<Movie>
-    private lateinit var searchMovies: MutableList<Movie>
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -53,7 +58,6 @@ class FirstFragment : Fragment(), SearchMoveListener {
         viewModel.searchMoveListener = this
 
         val popularMovies = binding.popularMovies
-        val searchMovies = binding.searchMovies
 
         movies = mutableListOf()
         popularMoviesLayoutMgr = GridLayoutManager(this.activity, 2)
@@ -63,36 +67,27 @@ class FirstFragment : Fragment(), SearchMoveListener {
         popularMovies.adapter = popularMoviesAdapter
         getMoveApiCall()
 
+        binding.etSearchView.addTextChangedListener(textWatcher)
 
-
-        searchMoviesLayoutMgr = GridLayoutManager(this.activity, 2)
-        moviesSearchAdapter =
-            MoviesAdapter(movies, requireContext(), mUserViewModel, favArrayList, true)
-        searchMovies.layoutManager = searchMoviesLayoutMgr
-        searchMovies.adapter = moviesSearchAdapter
 
         binding.ivClose.setOnClickListener {
-            binding.searchMovies.visibility = View.GONE
-            binding.ivClose.visibility = View.GONE
-            binding.ivSearchNew.visibility = View.VISIBLE
-        }
-
-        binding.ivSearchNew.setOnClickListener {
-
-            if (etSearchView.text.length > 1) {
-                viewModel.getSearchMovie(etSearchView.text.toString(), 1)
-                it.hideKeyboard()
-            } else {
-                Toast.makeText(context, "please enter move name", Toast.LENGTH_SHORT).show()
-            }
+            isFromSearch = true
+            movies.clear()
+            popularMoviesLayoutMgr.scrollToPosition(0)
+            getMoveApiCall()
+            it.hideKeyboard()
+            binding.etSearchView.text.clear()
         }
         return binding.root
     }
 
     private fun getMoveApiCall() {
 
+        movies.clear()
         viewModel.getMovie().observe(viewLifecycleOwner) { newMovies ->
             onPopularMoviesFetched(newMovies)
+            popularMoviesAdapter.notifyDataSetChanged()
+
         }
     }
 
@@ -105,35 +100,53 @@ class FirstFragment : Fragment(), SearchMoveListener {
         popularMoviesAdapter.appendMovies(movies)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onResume() {
         super.onResume()
+        if (isFromSearch) {
+            mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
+                Log.i("MoviesAdapter", "move list   " + user)
+                favArrayList.clear()
+                for (item in user) {
+                    favArrayList.add(item.moveId)
+                }
+                popularMoviesAdapter.notifyDataSetChanged()
+            })
 
-        mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
-            Log.i("MoviesAdapter", "move list   " + user)
-            favArrayList.clear()
-            for (item in user) {
-                favArrayList.add(item.moveId)
-            }
-            popularMoviesAdapter.notifyDataSetChanged()
-        })
-
+        } else {
+            viewModel.getSearchMovie(searchName, 1)
+        }
     }
 
 
     @SuppressLint("NotifyDataSetChanged")
     override fun getMove(response: MoviesResponse?) {
         if (response?.movies!!.isNotEmpty()) {
+            isFromSearch = false
             movies.clear()
-            binding.searchMovies.visibility = View.VISIBLE
-            binding.ivClose.visibility = View.VISIBLE
-            binding.ivSearchNew.visibility = View.GONE
-            moviesSearchAdapter.appendMovies(response.movies)
-            etSearchView.text.clear()
-            moviesSearchAdapter.notifyDataSetChanged()
+            popularMoviesLayoutMgr.scrollToPosition(0)
+            onPopularMoviesFetched(response.movies)
+//            etSearchView.text.clear()
+            popularMoviesAdapter.notifyDataSetChanged()
         } else {
-            Toast.makeText(context, "search not complete", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(context, "search not complete", Toast.LENGTH_SHORT).show()
+        }
+    }
 
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            Log.d("text",p0.toString())
+            searchName=p0.toString()
+            if (p0!!.length >= 2) {
+                viewModel.getSearchMovie(p0.toString(), 1)
+            }
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
         }
     }
 

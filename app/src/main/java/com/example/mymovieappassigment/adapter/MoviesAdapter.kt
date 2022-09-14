@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.kotlinroomdatabase.viewModel.UserViewModel
+import com.example.mymovieappassigment.Views.PopularMovieFragmentDirections
+import com.example.mymovieappassigment.Views.MainActivity.Constants.searchName
 import com.example.mymovieappassigment.databinding.ItemMovieBinding
+import com.example.mymovieappassigment.model.Movie
 import com.example.mymovieappassigment.roomDatabase.model.FavModel
 
 class MoviesAdapter(
@@ -69,7 +72,7 @@ class MoviesAdapter(
 
             }
 
-            if (isFromSearch as Boolean) {
+            if (searchName.length > 0) {
                 holder.favorite.visibility = View.GONE
             } else {
                 holder.favorite.visibility = View.VISIBLE
@@ -93,8 +96,6 @@ class MoviesAdapter(
                 .load("https://image.tmdb.org/t/p/w92${movie.posterPath}")
                 .transform(CenterCrop())
                 .into(binding.itemMoviePoster)
-
-
 
             binding.FavBtn.setOnClickListener {
                 try {
@@ -149,9 +150,15 @@ class MoviesAdapter(
 
             }
             binding.root.setOnClickListener {
-                val direction = FirstFragmentDirections.actionFirstFragmentToDetailFragment(movie)
-                binding.root.findNavController().navigate(direction)
-                Log.i("MoviesAdapter", movie.title)
+                try {
+                    val direction =
+                        PopularMovieFragmentDirections.actionFirstFragmentToDetailFragment(movie)
+                    binding.root.findNavController().navigate(direction)
+                    Log.i("MoviesAdapter", movie.title)
+                } catch (e: Exception) {
+                    Toast.makeText(context, "some file missing in move", Toast.LENGTH_SHORT).show()
+                }
+
 
             }
         }

@@ -1,5 +1,7 @@
 package com.example.mymovieappassigment
 
+import com.example.mymovieappassigment.network.Api
+import com.example.mymovieappassigment.repositories.ApiWorker
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -10,6 +12,7 @@ object MoviesRepository {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org")
             .addConverterFactory(GsonConverterFactory.create())
+            .client(ApiWorker.client)
             .build()
         api = retrofit.create(Api::class.java)
     }

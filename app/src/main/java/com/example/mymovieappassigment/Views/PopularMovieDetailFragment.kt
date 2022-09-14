@@ -1,4 +1,4 @@
-package com.example.mymovieappassigment
+package com.example.mymovieappassigment.Views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,11 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.example.mymovieappassigment.R
 import com.example.mymovieappassigment.databinding.FragmentDetailBinding
 import com.example.mymovieappassigment.viewModel.DetailFragmentViewModel
 import com.example.mymovieappassigment.viewModel.DetailFragmentViewModelFactory
 
-class DetailFragment : Fragment() {
+class PopularMovieDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
 
@@ -30,7 +31,7 @@ class DetailFragment : Fragment() {
             false
         )
 
-        val detailFragmentArgs by navArgs<DetailFragmentArgs>()
+        val detailFragmentArgs by navArgs<com.example.mymovieappassigment.Views.PopularMovieDetailFragmentArgs>()
 
         val viewModel: DetailFragmentViewModel by lazy {
             val viewModelFactory = DetailFragmentViewModelFactory(detailFragmentArgs.movies)

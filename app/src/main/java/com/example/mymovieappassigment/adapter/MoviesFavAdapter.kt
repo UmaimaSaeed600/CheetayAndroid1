@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.kotlinroomdatabase.viewModel.UserViewModel
-import com.example.mymovieappassigment.FavFragmentDirections
+import com.example.mymovieappassigment.Views.FavFragmentDirections
 import com.example.mymovieappassigment.R
 import com.example.mymovieappassigment.databinding.ItemFavMovieBinding
 import com.example.mymovieappassigment.roomDatabase.model.FavModel

@@ -71,7 +71,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/darkGrey" />
+            <solid android:color="@color/cardview_dark_background" />
             <corners android:radius="10dp" />
         </shape>
     </item>

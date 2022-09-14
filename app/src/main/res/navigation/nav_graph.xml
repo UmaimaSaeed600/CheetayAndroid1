@@ -7,22 +7,24 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.mymovieappassigment.FirstFragment"
+        android:name="com.example.mymovieappassigment.Views.PopularMovieFragment"
         android:label="first_fragment_label"
         tools:layout="@layout/fragment_first">
         <action
             android:id="@+id/action_FirstFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:popUpToSaveState="true"
+            />
 
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.mymovieappassigment.DetailFragment"
+        android:name="com.example.mymovieappassigment.Views.PopularMovieDetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="movies"
-            app:argType="com.example.mymovieappassigment.Movie" />
+            app:argType="com.example.mymovieappassigment.model.Movie" />
     </fragment>
 
 </navigation>

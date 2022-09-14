@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.mymovieappassigment.roomDatabase.data.UserDao
+import com.example.mymovieappassigment.roomDatabase.data.FavDao
 import com.example.mymovieappassigment.roomDatabase.model.FavModel
 
 // UserDatabase represents database and contains the database holder and server the main access point for the underlying connection to your app's persisted, relational data.
@@ -14,14 +14,14 @@ import com.example.mymovieappassigment.roomDatabase.model.FavModel
     version = 1,                // <- Database version
     exportSchema = true
 )
-abstract class UserDatabase : RoomDatabase() { // <- Add 'abstract' keyword and extends RoomDatabase
-    abstract fun userDao(): UserDao
+abstract class FavDatabase : RoomDatabase() { // <- Add 'abstract' keyword and extends RoomDatabase
+    abstract fun userDao(): FavDao
 
     companion object {
         @Volatile
-        private var INSTANCE: UserDatabase? = null
+        private var INSTANCE: FavDatabase? = null
 
-        fun getDatabase(context: Context): UserDatabase {
+        fun getDatabase(context: Context): FavDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -29,7 +29,7 @@ abstract class UserDatabase : RoomDatabase() { // <- Add 'abstract' keyword and 
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    UserDatabase::class.java,
+                    FavDatabase::class.java,
                     "user_database"
                 ).build()
                 INSTANCE = instance

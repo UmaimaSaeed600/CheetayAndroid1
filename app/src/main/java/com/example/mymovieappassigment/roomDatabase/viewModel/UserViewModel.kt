@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.kotlinroomdatabase.data.UserDatabase
+import com.example.kotlinroomdatabase.data.FavDatabase
 import com.example.mymovieappassigment.roomDatabase.model.FavModel
-import com.example.mymovieappassigment.roomDatabase.model.repository.UserRepository
+import com.example.mymovieappassigment.roomDatabase.model.repository.FavRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,11 +15,11 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
     val readAllData: LiveData<List<FavModel>>
-    private val repository: UserRepository
+    private val repository: FavRepository
 
     init {
-        val userDao = UserDatabase.getDatabase(application).userDao()
-        repository = UserRepository(userDao)
+        val userDao = FavDatabase.getDatabase(application).userDao()
+        repository = FavRepository(userDao)
         readAllData = repository.readAllData
     }
 

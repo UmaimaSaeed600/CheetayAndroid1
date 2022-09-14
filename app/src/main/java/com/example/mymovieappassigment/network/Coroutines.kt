@@ -1,4 +1,4 @@
-package com.example.mymovieappassigment
+package com.example.mymovieappassigment.network
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

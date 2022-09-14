@@ -1,4 +1,4 @@
-package com.example.mymovieappassigment
+package com.example.mymovieappassigment.Views
 
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinroomdatabase.viewModel.UserViewModel
+import com.example.mymovieappassigment.R
 import com.example.mymovieappassigment.adapter.MoviesFavAdapter
 import com.example.mymovieappassigment.databinding.FragmentFavBinding
 import com.example.mymovieappassigment.roomDatabase.model.FavModel

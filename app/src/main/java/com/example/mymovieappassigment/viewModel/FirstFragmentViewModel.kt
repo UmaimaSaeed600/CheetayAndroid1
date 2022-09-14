@@ -3,12 +3,13 @@ package com.example.mymovieappassigment.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.mymovieappassigment.Coroutines
-import com.example.mymovieappassigment.Movie
+import com.example.mymovieappassigment.network.Coroutines
+import com.example.mymovieappassigment.model.Movie
 import com.example.mymovieappassigment.MoviesRepository
-import com.example.mymovieappassigment.SearchMoveListener
+import com.example.mymovieappassigment.network.SearchMoveListener
 import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.Dispatchers
+
 
 class FirstFragmentViewModel : ViewModel() {
 
@@ -35,7 +36,6 @@ class FirstFragmentViewModel : ViewModel() {
                     searchMoveListener?.getMove(response)
                     return@main
                 }
-
             } catch (e: ApiException) {
                 e.printStackTrace()
             }

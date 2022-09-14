@@ -1,22 +1,25 @@
-package com.example.mymovieappassigment
+package com.example.mymovieappassigment.Views
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import java.lang.reflect.Array.newInstance
-import javax.xml.datatype.DatatypeFactory.newInstance
+import com.example.mymovieappassigment.R
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+    }
+
+    companion object Constants {
+        var isFromSearch: Boolean = true
+        var searchName: String = ""
 
 
     }

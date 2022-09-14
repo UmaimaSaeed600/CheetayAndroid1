@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FavFragment"
-        android:name="com.example.mymovieappassigment.FavFragment"
+        android:name="com.example.mymovieappassigment.Views.FavFragment"
         android:label="Favourite"
         tools:layout="@layout/fragment_fav">
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.mymovieappassigment.FavDetailFragment"
+        android:name="com.example.mymovieappassigment.Views.FavDetailFragment"
         android:label="DetailFavFragment"
         tools:layout="@layout/fragment_fav_detail">
         <argument

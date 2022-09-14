@@ -2,7 +2,7 @@ package com.example.mymovieappassigment.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mymovieappassigment.Movie
+import com.example.mymovieappassigment.model.Movie
 
 @Suppress("unchecked_cast")
 class DetailFragmentViewModelFactory(val movies: Movie) : ViewModelProvider.Factory {
