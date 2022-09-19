@@ -70,14 +70,18 @@ class MoviesFavAdapter(
 //
 
             binding.FavBtn.setOnClickListener {
-                val user = FavModel(movie.moveId,movie.title,movie.posterPath,movie.backdropPath,movie.releaseDate,movie.rating,movie.overview)
-
+                val user = FavModel(
+                    movie.moveId,
+                    movie.title,
+                    movie.overview,
+                    movie.posterPath,
+                    movie.backdropPath,
+                    movie.rating,
+                    movie.releaseDate
+                )
                 // Add Data to database
                 mUserViewModel.deleteUser(user)
-//                movies.removeAt(position)
-//                notifyItemRemoved(position)
                 movies.clear()
-//                notifyItemRangeChanged(position, movies.size)
                 notifyDataSetChanged()
             }
             binding.root.setOnClickListener {

@@ -10,8 +10,6 @@ import com.example.mymovieappassigment.roomDatabase.model.repository.FavReposito
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-// UserViewModel provides users data to the UI and survive configuration changes.
-// A ViewModel acts as a communication center between the Repository and the UI.
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
     val readAllData: LiveData<List<FavModel>>

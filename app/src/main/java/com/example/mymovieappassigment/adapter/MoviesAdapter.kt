@@ -17,11 +17,10 @@ import com.example.kotlinroomdatabase.viewModel.UserViewModel
 import com.example.mymovieappassigment.Views.PopularMovieFragmentDirections
 import com.example.mymovieappassigment.Views.MainActivity.Constants.searchName
 import com.example.mymovieappassigment.databinding.ItemMovieBinding
-import com.example.mymovieappassigment.model.Movie
 import com.example.mymovieappassigment.roomDatabase.model.FavModel
 
 class MoviesAdapter(
-    private var movies: MutableList<Movie>,
+    private var movies: MutableList<FavModel>,
     val context: Context,
     var mUserViewModel: UserViewModel,
     val favArrayList: ArrayList<Long> = arrayListOf<Long>(),
@@ -39,7 +38,7 @@ class MoviesAdapter(
         return MovieViewHolder(binding)
     }
 
-    fun appendMovies(movies: List<Movie>) {
+    fun appendMovies(movies: List<FavModel>) {
         this.movies.addAll(movies)
         notifyItemRangeInserted(
             this.movies.size,
@@ -53,7 +52,7 @@ class MoviesAdapter(
         holder.bind(movies[position])
 
         try {
-            if (favArrayList.contains(movies.get(position).id)) {
+            if (favArrayList.contains(movies.get(position).moveId)) {
                 holder.favorite.setImageDrawable(
                     ContextCompat.getDrawable(
                         context,
@@ -61,7 +60,7 @@ class MoviesAdapter(
                     )
                 )
             }
-            if (!favArrayList.contains(movies.get(position).id)) {
+            if (!favArrayList.contains(movies.get(position).moveId)) {
                 holder.favorite.setImageDrawable(
                     ContextCompat.getDrawable(
                         context,
@@ -90,7 +89,7 @@ class MoviesAdapter(
         RecyclerView.ViewHolder(binding.root) {
         val favorite = itemView.findViewById<View>(R.id.FavBtn) as ImageView
 
-        fun bind(movie: Movie) {
+        fun bind(movie: FavModel) {
             binding.item = movie
             Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w92${movie.posterPath}")
@@ -99,17 +98,17 @@ class MoviesAdapter(
 
             binding.FavBtn.setOnClickListener {
                 try {
-                    if (favArrayList.contains(movie.id)) {
+                    if (favArrayList.contains(movie.moveId)) {
                         isFav = false
-                        favArrayList.remove(movie.id)
+                        favArrayList.remove(movie.moveId)
                         val user = FavModel(
-                            movie.id,
+                            movie.moveId,
                             movie.title,
+                            movie.overview,
                             movie.posterPath,
                             movie.backdropPath,
-                            movie.releaseDate,
                             movie.rating,
-                            movie.overview
+                            movie.releaseDate
                         )
                         // Add Data to database
                         mUserViewModel.deleteUser(user)
@@ -123,15 +122,15 @@ class MoviesAdapter(
                         isFav = true
                     } else {
 
-                        favArrayList.add(movie.id)
+                        favArrayList.add(movie.moveId)
                         val user = FavModel(
-                            movie.id,
+                            movie.moveId,
                             movie.title,
+                            movie.overview,
                             movie.posterPath,
                             movie.backdropPath,
-                            movie.releaseDate,
                             movie.rating,
-                            movie.overview
+                            movie.releaseDate
                         )
                         // Add Data to database
                         mUserViewModel.addUser(user)

@@ -7,14 +7,13 @@ import androidx.room.RoomDatabase
 import com.example.mymovieappassigment.roomDatabase.data.FavDao
 import com.example.mymovieappassigment.roomDatabase.model.FavModel
 
-// UserDatabase represents database and contains the database holder and server the main access point for the underlying connection to your app's persisted, relational data.
 
 @Database(
     entities = [FavModel::class],
-    version = 1,                // <- Database version
+    version = 1,
     exportSchema = true
 )
-abstract class FavDatabase : RoomDatabase() { // <- Add 'abstract' keyword and extends RoomDatabase
+abstract class FavDatabase : RoomDatabase() {
     abstract fun userDao(): FavDao
 
     companion object {

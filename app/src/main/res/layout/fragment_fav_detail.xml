@@ -5,7 +5,7 @@
     <data>
         <variable
             name="detailFavViewModel"
-            type="com.example.mymovieappassigment.viewModel.FavDetailFragmentViewModel" />
+            type="com.example.mymovieappassigment.viewModel.DetailFragmentViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

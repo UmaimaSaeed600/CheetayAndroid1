@@ -1,5 +1,6 @@
 package com.example.mymovieappassigment.model
 
+import com.example.mymovieappassigment.roomDatabase.model.FavModel
 import com.google.gson.annotations.SerializedName
 
 data class MoviesResponse(
@@ -7,7 +8,7 @@ data class MoviesResponse(
     val page: Int,
 
     @SerializedName("results")
-    val movies: List<Movie>,
+    val movies: List<FavModel>,
 
     @SerializedName("total_pages")
     val pages: Int

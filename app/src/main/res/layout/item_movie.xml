@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.mymovieappassigment.model.Movie" />
+            type="com.example.mymovieappassigment.roomDatabase.model.FavModel" />
     </data>
 
 

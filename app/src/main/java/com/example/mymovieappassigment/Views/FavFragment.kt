@@ -53,24 +53,13 @@ class FavFragment : Fragment() {
         popularMovies.adapter = popularMoviesAdapter
 
         viewModel.getMovie().observe(viewLifecycleOwner, Observer { newMovies ->
-
-//            onPopularMoviesFetched(newMovies)
-
         })
 
-
         mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
-            Log.i("MoviesAdapter", "move list   " + user)
-//            favArrayList.clear()
-//            for (item in user) {
-//                favArrayList.add(item.moveId)
-//            }
+            Log.i("MoviesAdapter", "move list  $user")
             onPopularMoviesFetched(user)
 
         })
-
-
-
 
         return binding.root
 

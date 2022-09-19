@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinroomdatabase.viewModel.UserViewModel
-import com.example.mymovieappassigment.model.Movie
 import com.example.mymovieappassigment.MoviesAdapter
 import com.example.mymovieappassigment.model.MoviesResponse
 import com.example.mymovieappassigment.Views.MainActivity.Constants.isFromSearch
@@ -24,6 +23,7 @@ import com.example.mymovieappassigment.Views.MainActivity.Constants.searchName
 import com.example.mymovieappassigment.network.SearchMoveListener
 import com.example.mymovieappassigment.R
 import com.example.mymovieappassigment.databinding.FragmentFirstBinding
+import com.example.mymovieappassigment.roomDatabase.model.FavModel
 import com.example.mymovieappassigment.viewModel.FirstFragmentViewModel
 
 class PopularMovieFragment : Fragment(), SearchMoveListener {
@@ -35,7 +35,7 @@ class PopularMovieFragment : Fragment(), SearchMoveListener {
     private lateinit var binding: FragmentFirstBinding
     private lateinit var mUserViewModel: UserViewModel
     val favArrayList = arrayListOf<Long>()
-    private lateinit var movies: MutableList<Movie>
+    private lateinit var movies: MutableList<FavModel>
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -51,7 +51,7 @@ class PopularMovieFragment : Fragment(), SearchMoveListener {
             false
         )
 
-        binding.setLifecycleOwner(this)
+        //binding.setLifecycleOwner(this)
 
         viewModel = ViewModelProvider(this).get(FirstFragmentViewModel::class.java)
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
@@ -96,7 +96,7 @@ class PopularMovieFragment : Fragment(), SearchMoveListener {
         imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
-    private fun onPopularMoviesFetched(movies: List<Movie>) {
+    private fun onPopularMoviesFetched(movies: List<FavModel>) {
         popularMoviesAdapter.appendMovies(movies)
     }
 
@@ -126,7 +126,6 @@ class PopularMovieFragment : Fragment(), SearchMoveListener {
             movies.clear()
             popularMoviesLayoutMgr.scrollToPosition(0)
             onPopularMoviesFetched(response.movies)
-//            etSearchView.text.clear()
             popularMoviesAdapter.notifyDataSetChanged()
         } else {
             Toast.makeText(context, "search not complete", Toast.LENGTH_SHORT).show()

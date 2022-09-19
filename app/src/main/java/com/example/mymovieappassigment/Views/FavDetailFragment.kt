@@ -13,11 +13,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.mymovieappassigment.R
 import com.example.mymovieappassigment.databinding.FragmentFavDetailBinding
-import com.example.mymovieappassigment.viewModel.FavDetailFragmentViewModel
-import com.example.mymovieappassigment.viewModel.FavDetailFragmentViewModelFactory
+import com.example.mymovieappassigment.viewModel.DetailFragmentViewModel
+import com.example.mymovieappassigment.viewModel.DetailFragmentViewModelFactory
 
 class FavDetailFragment : Fragment() {
-
     private lateinit var binding: FragmentFavDetailBinding
 
     override fun onCreateView(
@@ -31,11 +30,11 @@ class FavDetailFragment : Fragment() {
             false
         )
 
-        val detailFavFragmentArgs by navArgs<com.example.mymovieappassigment.Views.FavDetailFragmentArgs>()
+        val detailFavFragmentArgs by navArgs<FavDetailFragmentArgs>()
 
-        val viewModel: FavDetailFragmentViewModel by lazy {
-            val viewModelFactory = FavDetailFragmentViewModelFactory(detailFavFragmentArgs.favModel)
-            ViewModelProvider(this, viewModelFactory).get(FavDetailFragmentViewModel::class.java)
+        val viewModel: DetailFragmentViewModel by lazy {
+            val viewModelFactory = DetailFragmentViewModelFactory(detailFavFragmentArgs.favModel)
+            ViewModelProvider(this, viewModelFactory).get(DetailFragmentViewModel::class.java)
         }
 
         binding.detailFavViewModel = viewModel
@@ -55,3 +54,4 @@ class FavDetailFragment : Fragment() {
         return binding.root
     }
 }
+
